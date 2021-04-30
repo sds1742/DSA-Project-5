@@ -17,9 +17,6 @@ public:
 	lcsunit();
 	lcsunit(string a, string b);
 	void lcscalc(string X, string Y,bool b);
-	double getlength();
-	string gets1();
-	string gets2();
 	void findsim();
 	char getchar();
 };

@@ -20,7 +20,5 @@ public:
 	void printtable();
 	void computeLengths();
 	void directAccess();
-	void ShowPositionsArray();
-	//todo: turn the words call into random access file system
 };
 
