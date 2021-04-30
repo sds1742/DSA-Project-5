@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <fstream>
 #include <iostream>
 using namespace std;
 class lcsunit
@@ -15,8 +16,7 @@ private:
 public:
 	lcsunit();
 	lcsunit(string a, string b);
-	void lcscalc(string X, string Y);
-	void findlength(int a, int b);
+	void lcscalc(string X, string Y,bool b);
 	double getlength();
 	string gets1();
 	string gets2();

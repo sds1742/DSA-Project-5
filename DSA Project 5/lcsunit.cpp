@@ -4,6 +4,8 @@ lcsunit::lcsunit()
 {
 	s1 = "string1";
 	s2 = "string2";
+	lcssize = 0;
+	simchar = 'Z';
 }
 
 lcsunit::lcsunit(string a, string b)
@@ -13,29 +15,39 @@ lcsunit::lcsunit(string a, string b)
 	lcssize = 0;
 	simchar = 'X';
 	matrixcols = s1.length() + 1;
-	matrixrows = s2.length() + 1;
-	table = new int* [matrixrows];
-	for (int k = 0; k < matrixrows; k++) {
+	matrixrows = s2.length();
+	table = new int* [2];
+	for (int k = 0; k < 3; k++) {
 		table[k] = new int[matrixcols];
 	}
-	lcscalc(s2, s1);
-	findlength(s2.length(), s1.length());
+	lcscalc(s2.substr(0,2),s1,1);
+	for (int i = 1; i < matrixrows; i++) {
+		lcscalc(s2.substr(i, 2), s1, 0);
+	}
+	lcssize = static_cast<double>(table[1][s1.length()]);
 	findsim();
 }
 
-void lcsunit::lcscalc(string X, string Y)
+void lcsunit::lcscalc(string X, string Y,bool b)
 {
 	int m = X.length();
 	int n = Y.length();
-	for (int i = 1; i < m; i++) {
-		table[i][0] = 0;
+	if (b == 1) {
+		for (int i = 1; i < m+1; i++) {
+			table[i][0] = 0;
+		}
+		for (int j = 0; j < n+1; j++) {
+			table[0][j] = 0;
+		}
 	}
-	for (int j = 0; j < n; j++) {
-		table[0][j] = 0;
+	else {
+		for (int i = 0; i < n + 1; i++) {
+			table[0][i] = table[1][i];
+		}
 	}
-	for (int i = 1; i < m; i++) {
-		for (int j = 1; j < n; j++) {
-			if (X[i] == Y[j]) {
+	for (int i = 1; i < m+1; i++) {
+		for (int j = 1; j < n+1; j++) {
+			if (X[i-1] == Y[j-1]) {
 				table[i][j] = (table[i - 1][j - 1]) + 1;
 			}
 			else {
@@ -50,22 +62,7 @@ void lcsunit::lcscalc(string X, string Y)
 	}
 }
 
-void lcsunit::findlength(int a, int b)
-{
-	if ((a == 0) || (b == 0)) {
-		return;
-	}
-	else if (s2[a] == s1[b]) {
-		findlength(a - 1, b - 1);
-		lcssize=lcssize+1;
-	}
-	else if (table[a - 1][b] >= table[a][b - 1]) {
-		findlength(a - 1, b);
-	}
-	else {
-		findlength(a, b - 1);
-	}
-}
+
 
 double lcsunit::getlength()
 {
