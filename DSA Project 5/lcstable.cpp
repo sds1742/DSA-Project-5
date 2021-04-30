@@ -5,10 +5,6 @@ lcstable::lcstable()
 	ifstream stream;
 	stream.open("multiStrings.txt");
 	stream >> numstrings;
-	//words = new string[numstrings];
-	//for (int k = 0; k < numstrings; k++) {
-		//stream >> words[k];
-	//}
 	simtable = new char* [numstrings];
 	for (int i = 0; i < numstrings; i++) {
 		simtable[i] = new char[numstrings];
@@ -20,16 +16,31 @@ lcstable::lcstable()
 	}
 	stream.close();
 	computeLengths();
-	ShowPositionsArray();
+	//ShowPositionsArray();
 	directAccess();
+	cout<<endl;
+	cout<<"Part 2 output"<<endl;
 	printtable();
 }
 
 void lcstable::printtable()
 {
-	for (int i = 0; i < numstrings; i++) {
-		for (int j = 0; j < numstrings; j++) {
-				cout << simtable[i][j] << " ";
+	for (int i = 0; i <= numstrings; i++) {
+		for (int j = 0; j <= numstrings; j++) {
+			if((i>0)&&(j>0)){
+			cout << simtable[i-1][j-1]<<" ";
+			}
+			else{
+			if((i==0)&&(j>0)){
+			cout<<j<<" ";
+			}
+			else if((j==0)&&(i>0)){
+			cout<<i<<" ";
+			}
+			else{
+			cout<<"- ";
+			}
+			}
 		}
 		cout << endl;
 	}
@@ -43,9 +54,10 @@ void lcstable::computeLengths()
 	positions[0] = 0;
 	while (in.getline(line, LINLEN)) {
 		positions[totStrings] = strlen(line) + 1;
-		cout << "number of chars =" << positions[totStrings++] << endl;
+		//cout << "number of chars =" << positions[totStrings++] << endl;
+		totStrings++;
 		line[strlen(line)] = '\0';
-		cout << "string = " << line << endl;
+		//cout << "string = " << line << endl;
 	}
 	in.close();
 }
@@ -60,12 +72,12 @@ void lcstable::directAccess()
 	for (i = 1; i < totStrings - 1; i++) {
 		in.getline(line, LINLEN);
 		line[strlen(line)] = '\0';
-		cout << "this string [" << line << "]" << endl;
+		//cout << "this string [" << line << "]" << endl;
 		string s=line;
 		for (j = i + 1; j < totStrings; j++) {
 			in.getline(line, LINLEN);
 			line[strlen(line)] = '\0';
-			cout << " compared with[" << line << "]" << endl;
+			//cout << " compared with[" << line << "]" << endl;
 			lcsunit u=lcsunit(s,line);
 			simtable[i-1][j-1]=u.getchar();
 			

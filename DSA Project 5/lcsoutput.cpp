@@ -14,10 +14,13 @@ lcsoutput::lcsoutput()
 		c[k] = new int[matrixcols];
 	}
 	lcslength(s2, s1);
+	cout<<"Part 1 output"<<endl;
 	printLCS(s2.length(),s1.length());
 	is.close();
 	cout << endl;
-	cout << sslength << endl;
+	cout<<"length(X) = "<<s1.length()<<endl;
+	cout<<"length(Y) = "<<s2.length()<<endl;
+	cout<<"LCS length =  "<< sslength << endl;
 }
 
 void lcsoutput::lcslength(string X, string Y)
