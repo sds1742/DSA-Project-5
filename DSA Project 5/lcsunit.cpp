@@ -95,7 +95,8 @@ void lcsunit::findsim()
 		shorter = s1.length();
 	}
 	double pd1 = (longer - shorter) / longer;
-	if ((pd1<=0.1) && ((shorter * 0.9) <= lcssize)) {
+	double pd2 = (lcssize)/shorter;
+	if ((pd1<=0.1) && (pd2>=0.9)) {
 		simchar = 'H';
 	}
 	else if ((pd1<=0.2) && ((shorter * 0.8) <= lcssize)) {

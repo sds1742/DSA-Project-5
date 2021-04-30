@@ -13,7 +13,7 @@ private:
 	int numstrings;
 	const int POSLEN = 20;
 	const int LINLEN = 120;
-	int positions[POSLEN];
+	int* positions=new int[POSLEN];
 	int totStrings=0;
 public:
 	lcstable();
